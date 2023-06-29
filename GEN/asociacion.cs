@@ -457,5 +457,27 @@ namespace GEN
                 v_boSN = "";
             }
         }
+
+        private void eliminarFilaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //agarramos la fila seleccionada
+            foreach (DataGridViewRow row in dtAsoCentral.Rows)
+            {
+                if (row.Selected == true)
+                {
+                   //dtAsoCentral.Rows.Remove(row);
+                    string v_sn = row.Cells[0].Value.ToString();
+                    string v_imp = row.Cells[4].Value.ToString();
+                    //eliminamos la linea de la base de datos
+                    SAPbobsCOM.Recordset oEliminar;
+                    oEliminar = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+                    oEliminar.DoQuery("DELETE FROM \"FG_PROD\".\"@IMPPDV\" WHERE \"U_LEG_IMP\"='"+v_imp+"' AND \"U_PDV\"='"+v_sn+"' ");
+
+                    MessageBox.Show("Fila eliminada","",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    dtbAso.Clear();
+                    cargarGrillaASO();
+                }
+            }
+        }
     }
 }
