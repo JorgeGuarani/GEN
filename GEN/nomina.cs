@@ -171,7 +171,7 @@ namespace GEN
                     string pp7 = row[7].ToString();
 
                     dgvNomina.Rows.Add(pp, pp1, pp2, pp3, pp4, pp5, pp6, pp7);
-                }
+                }               
 
 
             }
@@ -212,36 +212,70 @@ namespace GEN
         //funcion al presiona el boton actualizar
         private void button1_Click(object sender, EventArgs e)
         {
-            int v_filaselec = dtNomina.SelectedRows.Count;
+            //int v_filaselec = dtNomina.SelectedRows.Count;
+            //if (v_filaselec == 0)
+            //{
+            //    MessageBox.Show("Seleccione fila para actualizar!!");
+            //    return;
+            //}
+            //foreach (DataGridViewRow row in dtNomina.Rows)
+            //{
+
+            //    if (row.Selected == true)
+            //    {
+            //        string v_legajo = row.Cells[0].Value.ToString();
+            //        string v_categ = row.Cells[4].Value.ToString();
+            //        string v_superior = row.Cells[5].Value.ToString();
+            //        string v_celular = row.Cells[6].Value.ToString();
+            //        string v_compania = row.Cells[7].Value.ToString();
+            //        string v_cate = row.Cells[8].Value.ToString(); //dtNomina.Rows[row.Index].Cells[8].Value.ToString();
+            //        //agarramos solo el codigo
+            //        int can = 0;
+            //        string superior_v = null;
+            //        int index = v_superior.IndexOf("-");
+            //        if(index>0)
+            //        {
+            //            can = v_superior.Length;
+
+            //            superior_v = v_superior.Remove(index, can - index);
+            //            superior_v = superior_v.Replace(" ", string.Empty);
+            //        }                                       
+            //        actualizarJempleado(v_legajo, v_cate, superior_v, v_celular, v_compania);
+            //        dtEmp.Clear();
+            //        txtBuscarNom.Text = "";
+            //        recargarGrilla();
+            //    }
+            //}
+            int v_filaselec = dgvNomina.SelectedRows.Count;
             if (v_filaselec == 0)
             {
                 MessageBox.Show("Seleccione fila para actualizar!!");
                 return;
             }
-            foreach (DataGridViewRow row in dtNomina.Rows)
+            foreach (DataGridViewRow row in dgvNomina.Rows)
             {
 
                 if (row.Selected == true)
                 {
                     string v_legajo = row.Cells[0].Value.ToString();
-                    string v_categ = row.Cells[4].Value.ToString();
-                    string v_superior = row.Cells[5].Value.ToString();
-                    string v_celular = row.Cells[6].Value.ToString();
-                    string v_compania = row.Cells[7].Value.ToString();
-                    string v_cate = row.Cells[8].Value.ToString(); //dtNomina.Rows[row.Index].Cells[8].Value.ToString();
+                    //string v_categ = row.Cells[4].Value.ToString();
+                    string v_superior = row.Cells[4].Value.ToString();
+                    string v_celular = row.Cells[5].Value.ToString();
+                    string v_compania = row.Cells[6].Value.ToString();
+                    string v_cate = row.Cells[7].Value.ToString(); //dtNomina.Rows[row.Index].Cells[8].Value.ToString();
                     //agarramos solo el codigo
                     int can = 0;
                     string superior_v = null;
                     int index = v_superior.IndexOf("-");
-                    if(index>0)
+                    if (index > 0)
                     {
                         can = v_superior.Length;
-                        
+
                         superior_v = v_superior.Remove(index, can - index);
                         superior_v = superior_v.Replace(" ", string.Empty);
-                    }                                       
+                    }
                     actualizarJempleado(v_legajo, v_cate, superior_v, v_celular, v_compania);
-                    dtEmp.Clear();
+                    //dtEmp2.Clear();
                     txtBuscarNom.Text = "";
                     recargarGrilla();
                 }
@@ -255,6 +289,7 @@ namespace GEN
 
         private void nomina_Load(object sender, EventArgs e)
         {
+            dtNomina.Visible = false;
             dtEmp.Reset();
             dtEmp.Columns.Add("Legajo");
             dtEmp.Columns.Add("Nombre");
@@ -324,26 +359,18 @@ namespace GEN
             dgvNomina.EnableHeadersVisualStyles = false;
             dgvNomina.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue;
             dgvNomina.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-
+            //dgvNomina.Rows[0].Cells[1].Style.BackColor = Color.LightGreen;
             //inhabilitar las columnas
-            //int v_filaNomina = dtNomina.Rows.Count;
-            //int v_con = 0;
-            //while (v_con < v_filaNomina)
-            //{
-            //    dtNomina.Rows[v_con].Cells[0].ReadOnly = true;
-            //    dtNomina.Rows[v_con].Cells[1].ReadOnly = true;
-            //    dtNomina.Rows[v_con].Cells[2].ReadOnly = true;
-            //    dtNomina.Rows[v_con].Cells[3].ReadOnly = true;
-
-            //    dtNomina.Rows[v_con].Cells[0].Style.BackColor = Color.WhiteSmoke;
-            //    dtNomina.Rows[v_con].Cells[1].Style.BackColor = Color.WhiteSmoke;
-            //    dtNomina.Rows[v_con].Cells[2].Style.BackColor = Color.WhiteSmoke;
-            //    dtNomina.Rows[v_con].Cells[3].Style.BackColor = Color.WhiteSmoke;
-            //    dtNomina.EnableHeadersVisualStyles = false;
-            //    dtNomina.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue;
-            //    dtNomina.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            //    v_con++;
-            //}
+            int v_filaNomina = dgvNomina.Rows.Count;
+            int v_con = 0;
+            while (v_con < v_filaNomina)
+            {
+                dgvNomina.Rows[v_con].Cells[0].Style.BackColor = Color.WhiteSmoke;
+                dgvNomina.Rows[v_con].Cells[1].Style.BackColor = Color.WhiteSmoke;
+                dgvNomina.Rows[v_con].Cells[2].Style.BackColor = Color.WhiteSmoke;
+                dgvNomina.Rows[v_con].Cells[3].Style.BackColor = Color.WhiteSmoke;               
+                v_con++;
+            }
             //agregar combobox a la grilla
             //DataGridViewComboBoxColumn cbCell = new DataGridViewComboBoxColumn();
             //cbCell.DisplayIndex = 8;
@@ -353,7 +380,7 @@ namespace GEN
             //cbCell.Items.Add("PERSONAL");
             //cbCell.Name = "Compañía";
             //dtNomina.Columns.Add(cbCell);
-           
+
 
             //int v_filaCia = 0;
             ////cargar las compañias de cada empleado
@@ -405,65 +432,69 @@ namespace GEN
 
         private void recargarGrilla()
         {
-            dtEmp.Clear();
-            dtEmp.Rows.Clear();
+            dtEmp2.Clear();
+            dtEmp2.Rows.Clear();           
+
             SAPbobsCOM.Recordset oGrilla;
             oGrilla = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
-            oGrilla.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\",T0.\"U_CATEGORIA\",T0.\"U_TEL_CO\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" order by T0.\"DocEntry\" asc\r\n ");
+            //oGrilla.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" ");
+            oGrilla.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\",T0.\"U_CATEGORIA\",T0.\"U_TEL_CO\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" order by T0.\"DocEntry\" asc\r\n");
+            int v_filaNomi = 0;
             while (!oGrilla.EoF)
             {
-                dtEmp.Rows.Add(oGrilla.Fields.Item(0).Value.ToString(),
-                                  oGrilla.Fields.Item(1).Value.ToString(),
-                                  oGrilla.Fields.Item(2).Value.ToString(),
-                                  oGrilla.Fields.Item(3).Value.ToString(),
-                                  oGrilla.Fields.Item(4).Value.ToString(),
-                                  oGrilla.Fields.Item(5).Value.ToString(),
-                                  oGrilla.Fields.Item(6).Value.ToString());
+                dtEmp2.Rows.Add(oGrilla.Fields.Item(0).Value.ToString(),
+                                oGrilla.Fields.Item(1).Value.ToString(),
+                                oGrilla.Fields.Item(2).Value.ToString(),
+                                oGrilla.Fields.Item(3).Value.ToString(),
+                                oGrilla.Fields.Item(5).Value.ToString(),
+                                oGrilla.Fields.Item(6).Value.ToString(),
+                                oGrilla.Fields.Item(8).Value.ToString(),
+                                oGrilla.Fields.Item(7).Value.ToString());
+
+
+                //dtEmp.Rows.Add(oGrilla.Fields.Item(0).Value.ToString(),
+                //                  oGrilla.Fields.Item(1).Value.ToString(),
+                //                  oGrilla.Fields.Item(2).Value.ToString(),
+                //                  oGrilla.Fields.Item(3).Value.ToString(),
+                //                  oGrilla.Fields.Item(4).Value.ToString(),
+                //                  oGrilla.Fields.Item(5).Value.ToString(),
+                //                  oGrilla.Fields.Item(6).Value.ToString());
+                //oGrilla.Fields.Item(7).Value.ToString());
+                //dtNomina.Rows.Add();
+                //dtNomina.Rows[v_filaNomi].Cells[1].Value = oGrilla.Fields.Item(0).Value.ToString();
                 oGrilla.MoveNext();
+                v_filaNomi++;
             }
-            dtNomina.DataSource = dtEmp;
+            //dgvNomina.AutoResizeColumns();
+            //dgvNomina.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dtNomina.DataSource = dtEmp;
 
-
-            //cargar las compañias de cada empleado
-            int v_filaCia = 0;
-            int v_canCia = dtNomina.RowCount;
-            SAPbobsCOM.Recordset oGrilla2;
-            oGrilla2 = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
-            oGrilla2.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\",T0.\"U_CATEGORIA\",T0.\"U_TEL_CO\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" order by T0.\"DocEntry\" asc\r\n ");
-            while (!oGrilla2.EoF)
+            int empcount = dtEmp2.Rows.Count;
+            //string pp = dtEmp2.Rows[0]["Compania"].ToString();
+            int count = 0;
+            while (count < empcount)
             {
-                string v_cia = oGrilla2.Fields.Item(8).Value.ToString();
-                if (!string.IsNullOrEmpty(v_cia))
-                {
-                    if(v_filaCia< v_canCia)
-                    {
-                        dtNomina.Rows[v_filaCia].Cells[7].Value = v_cia;
-                    }
-                    
-                }
-                v_filaCia++;
-                oGrilla2.MoveNext();
+                dgvNomina.Rows.Add(dtEmp2.Rows[count]["Legajo"].ToString(), dtEmp2.Rows[count]["Nombre"].ToString(), dtEmp2.Rows[count]["Apellido"].ToString(), dtEmp2.Rows[count]["Enrolamiento"].ToString(),
+                               dtEmp2.Rows[count]["Superior"].ToString(), dtEmp2.Rows[count]["Corporativo"].ToString(), dtEmp2.Rows[count]["Compania"].ToString(), dtEmp2.Rows[count]["Categoria"].ToString());
+                count++;
             }
 
-            //cargar categoria de empleados
-            SAPbobsCOM.Recordset oCatSelect;
-            oCatSelect = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
-            oCatSelect.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\",T0.\"U_CATEGORIA\",T0.\"U_TEL_CO\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" order by T0.\"DocEntry\" asc\r\n ");
-            int v_filaCat = 0;
-            int v_can = dtNomina.RowCount;
-            while (!oCatSelect.EoF)
-            {
-                string v_cat = oCatSelect.Fields.Item(7).Value.ToString();
-                if (!v_cat.Equals("A DEFINIR"))
-                {
-                    if (v_filaCat < v_can)
-                    {
-                        dtNomina.Rows[v_filaCat].Cells[8].Value = v_cat;
-                    }
 
-                }
-                v_filaCat++;
-                oCatSelect.MoveNext();
+
+            dgvNomina.EnableHeadersVisualStyles = false;
+            dgvNomina.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue;
+            dgvNomina.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            //dgvNomina.Rows[0].Cells[1].Style.BackColor = Color.LightGreen;
+            //inhabilitar las columnas
+            int v_filaNomina = dgvNomina.Rows.Count;
+            int v_con = 0;
+            while (v_con < v_filaNomina)
+            {
+                dgvNomina.Rows[v_con].Cells[0].Style.BackColor = Color.WhiteSmoke;
+                dgvNomina.Rows[v_con].Cells[1].Style.BackColor = Color.WhiteSmoke;
+                dgvNomina.Rows[v_con].Cells[2].Style.BackColor = Color.WhiteSmoke;
+                dgvNomina.Rows[v_con].Cells[3].Style.BackColor = Color.WhiteSmoke;
+                v_con++;
             }
 
 

@@ -79,16 +79,26 @@ namespace GEN
                 {
                     nomina.v_superiorNomina = row.Cells[0].Value.ToString() +" - "+ row.Cells[1].Value.ToString();
                     nomina nomi = Owner as nomina;
-                    foreach (DataGridViewRow fila in nomi.dtNomina.Rows)
+                    //foreach (DataGridViewRow fila in nomi.dtNomina.Rows)
+                    //{
+                    //    if(fila.Index == nomina.v_filaNomina)
+                    //    {
+                    //        fila.Cells[5].Value = nomina.v_superiorNomina;
+                    //    }
+                    //}
+                    //this.Close();
+                    //nomi.dtNomina.CurrentCell = nomi.dtNomina.Rows[nomina.v_filaNomina].Cells[5];
+                    //nomi.dtNomina.BeginEdit(false);
+                    foreach (DataGridViewRow fila in nomi.dgvNomina.Rows)
                     {
-                        if(fila.Index == nomina.v_filaNomina)
+                        if (fila.Index == nomina.v_filaNomina)
                         {
-                            fila.Cells[5].Value = nomina.v_superiorNomina;
+                            fila.Cells[4].Value = nomina.v_superiorNomina;
                         }
                     }
                     this.Close();
-                    nomi.dtNomina.CurrentCell = nomi.dtNomina.Rows[nomina.v_filaNomina].Cells[5];
-                    nomi.dtNomina.BeginEdit(false);
+                    nomi.dgvNomina.CurrentCell = nomi.dgvNomina.Rows[nomina.v_filaNomina].Cells[5];
+                    nomi.dgvNomina.BeginEdit(false);
                 }
             }
             

@@ -295,7 +295,7 @@
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvNomina.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dgvNomina.Location = new System.Drawing.Point(16, 126);
+            this.dgvNomina.Location = new System.Drawing.Point(16, 98);
             this.dgvNomina.Name = "dgvNomina";
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
@@ -312,14 +312,14 @@
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
             this.dgvNomina.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvNomina.RowTemplate.Height = 29;
-            this.dgvNomina.Size = new System.Drawing.Size(1308, 354);
+            this.dgvNomina.Size = new System.Drawing.Size(1308, 382);
             this.dgvNomina.TabIndex = 13;
             this.dgvNomina.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNomina_CellDoubleClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle8;
@@ -381,31 +381,31 @@
             this.Categoria.HeaderText = "Categoria";
             this.Categoria.Items.AddRange(new object[] {
             "A DEFINIR",
-            "GERENTE COMERCIAL\t",
-            "SUPERVISOR GASTRONOMICO\t",
-            "SUPERVISOR SUPERMERCADO SENIOR\t",
-            "SUPERVISOR SUPERMERCADO JUNIOR\t",
-            "VENDEDOR SENIOR\t",
-            "VENDEDOR JUNIOR\t",
-            "VENDEDOR COLONIAS\t",
-            "TEAM LIDER\t",
-            "IMPULSADOR SENIOR\t",
-            "IMPULSADOR JUNIOR\t",
-            "REPOSITOR SENIOR\t",
-            "ANALISTA COMERCIAL\t",
-            "REPOSITOR JUNIOR\t",
-            "IMPULSADOR SOMBRA\t",
+            "GERENTE COMERCIAL",
+            "SUPERVISOR GASTRONOMICO",
+            "SUPERVISOR SUPERMERCADO SENIOR",
+            "SUPERVISOR SUPERMERCADO JUNIOR",
+            "VENDEDOR SENIOR",
+            "VENDEDOR JUNIOR",
+            "VENDEDOR COLONIAS",
+            "TEAM LIDER",
+            "IMPULSADOR SENIOR",
+            "IMPULSADOR JUNIOR",
+            "REPOSITOR SENIOR",
+            "ANALISTA COMERCIAL",
+            "REPOSITOR JUNIOR",
+            "IMPULSADOR SOMBRA",
             "SALONES\t",
-            "JEFE DE CANAL SUPERMERCADOS\t",
-            "JEFE DE CANAL PREVENTA\t",
-            "JEFE DE CANAL INTERIOR\t",
-            "SUPERVISOR INTERIOR\t",
-            "SUPERVISOR PREVENTA CORDILLERA -PARAGUARI\t",
-            "SUPERVISOR PREVENTA CENTRAL\t",
-            "SUPERVISOR SUR\t",
-            "OPERARIO\t",
-            "SUPERVISOR TURNO\t",
-            "CONTROL CALIDAD\t"});
+            "JEFE DE CANAL SUPERMERCADOS",
+            "JEFE DE CANAL PREVENTA",
+            "JEFE DE CANAL INTERIOR",
+            "SUPERVISOR INTERIOR",
+            "SUPERVISOR PREVENTA CORDILLERA -PARAGUARI",
+            "SUPERVISOR PREVENTA CENTRAL",
+            "SUPERVISOR SUR",
+            "OPERARIO",
+            "SUPERVISOR TURNO",
+            "CONTROL CALIDAD"});
             this.Categoria.MinimumWidth = 6;
             this.Categoria.Name = "Categoria";
             // 
@@ -458,7 +458,7 @@
         private PictureBox pictureBox1;
         private Label label1;
         public DataGridView dtNomina;
-        private DataGridView dgvNomina;
+        public DataGridView dgvNomina;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
