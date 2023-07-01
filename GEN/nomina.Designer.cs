@@ -34,6 +34,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(nomina));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dtNomina = new System.Windows.Forms.DataGridView();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -49,10 +56,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.dgvNomina = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Superior = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Corporativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Compania = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Categoria = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dtNomina)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNomina)).BeginInit();
             this.SuspendLayout();
             // 
             // dtNomina
@@ -100,7 +117,7 @@
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
             this.dtNomina.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dtNomina.RowTemplate.Height = 29;
-            this.dtNomina.Size = new System.Drawing.Size(1307, 409);
+            this.dtNomina.Size = new System.Drawing.Size(1307, 22);
             this.dtNomina.TabIndex = 0;
             this.dtNomina.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtNomina_CellDoubleClick);
             this.dtNomina.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dtNomina_CellValidating);
@@ -144,6 +161,7 @@
             // 
             // pictureBox6
             // 
+            this.pictureBox6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
             this.pictureBox6.Location = new System.Drawing.Point(239, 58);
             this.pictureBox6.Name = "pictureBox6";
@@ -151,6 +169,7 @@
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox6.TabIndex = 8;
             this.pictureBox6.TabStop = false;
+            this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click);
             // 
             // Legajo
             // 
@@ -241,12 +260,162 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // dgvNomina
+            // 
+            this.dgvNomina.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvNomina.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvNomina.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvNomina.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNomina.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvNomina.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNomina.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn2,
+            this.Superior,
+            this.Corporativo,
+            this.Compania,
+            this.Categoria});
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvNomina.DefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvNomina.Location = new System.Drawing.Point(16, 126);
+            this.dgvNomina.Name = "dgvNomina";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNomina.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            this.dgvNomina.RowHeadersWidth = 51;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvNomina.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            this.dgvNomina.RowTemplate.Height = 29;
+            this.dgvNomina.Size = new System.Drawing.Size(1308, 354);
+            this.dgvNomina.TabIndex = 13;
+            this.dgvNomina.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNomina_CellDoubleClick);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Legajo";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Nombre";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Apellido";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Enrolamiento";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // Superior
+            // 
+            this.Superior.HeaderText = "Superior";
+            this.Superior.MinimumWidth = 6;
+            this.Superior.Name = "Superior";
+            // 
+            // Corporativo
+            // 
+            this.Corporativo.HeaderText = "Corporativo";
+            this.Corporativo.MinimumWidth = 6;
+            this.Corporativo.Name = "Corporativo";
+            // 
+            // Compania
+            // 
+            this.Compania.HeaderText = "Compania";
+            this.Compania.Items.AddRange(new object[] {
+            "CLARO",
+            "TIGO",
+            "PERSONAL"});
+            this.Compania.MinimumWidth = 6;
+            this.Compania.Name = "Compania";
+            // 
+            // Categoria
+            // 
+            this.Categoria.HeaderText = "Categoria";
+            this.Categoria.Items.AddRange(new object[] {
+            "A DEFINIR",
+            "GERENTE COMERCIAL\t",
+            "SUPERVISOR GASTRONOMICO\t",
+            "SUPERVISOR SUPERMERCADO SENIOR\t",
+            "SUPERVISOR SUPERMERCADO JUNIOR\t",
+            "VENDEDOR SENIOR\t",
+            "VENDEDOR JUNIOR\t",
+            "VENDEDOR COLONIAS\t",
+            "TEAM LIDER\t",
+            "IMPULSADOR SENIOR\t",
+            "IMPULSADOR JUNIOR\t",
+            "REPOSITOR SENIOR\t",
+            "ANALISTA COMERCIAL\t",
+            "REPOSITOR JUNIOR\t",
+            "IMPULSADOR SOMBRA\t",
+            "SALONES\t",
+            "JEFE DE CANAL SUPERMERCADOS\t",
+            "JEFE DE CANAL PREVENTA\t",
+            "JEFE DE CANAL INTERIOR\t",
+            "SUPERVISOR INTERIOR\t",
+            "SUPERVISOR PREVENTA CORDILLERA -PARAGUARI\t",
+            "SUPERVISOR PREVENTA CENTRAL\t",
+            "SUPERVISOR SUR\t",
+            "OPERARIO\t",
+            "SUPERVISOR TURNO\t",
+            "CONTROL CALIDAD\t"});
+            this.Categoria.MinimumWidth = 6;
+            this.Categoria.Name = "Categoria";
+            // 
             // nomina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1340, 561);
+            this.Controls.Add(this.dgvNomina);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -267,6 +436,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNomina)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,5 +458,14 @@
         private PictureBox pictureBox1;
         private Label label1;
         public DataGridView dtNomina;
+        private DataGridView dgvNomina;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn Superior;
+        private DataGridViewTextBoxColumn Corporativo;
+        private DataGridViewComboBoxColumn Compania;
+        private DataGridViewComboBoxColumn Categoria;
     }
 }

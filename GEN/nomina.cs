@@ -28,10 +28,21 @@ namespace GEN
         System.Data.DataColumn EMPsup = new System.Data.DataColumn("col6");
         System.Data.DataColumn EMPtel = new System.Data.DataColumn("col7");
         System.Data.DataColumn EMPcom = new System.Data.DataColumn("col8");
+        System.Data.DataTable dtEmp2 = new System.Data.DataTable("EMP2");
         public static bool v_reload = false;
         //variable
         public static int v_filaNomina = 0;
         public static string v_superiorNomina = null;
+        public static string filtro_leg = null;
+        public static string filtro_nom = null;
+        public static string filtro_ape = null;
+        public static string filtro_enrol = null;
+        public static string filtro_sup = null;
+        public static string filtro_corp = null;
+        public static string filtro_comp = null;
+        public static string filtro_categ = null;
+        public static bool filtro_confirmar = false;
+
 
         public System.Data.DataTable v_dt = new System.Data.DataTable();
         public nomina()
@@ -92,6 +103,9 @@ namespace GEN
                                   oGrilla.Fields.Item(7).Value.ToString(),
                                   oGrilla.Fields.Item(8).Value.ToString(),
                                   oGrilla.Fields.Item(9).Value.ToString());
+
+               
+
                 oGrilla.MoveNext();
 
             }
@@ -135,16 +149,35 @@ namespace GEN
         {
             if (string.IsNullOrEmpty(txtBuscarNom.Text))
             {
-                recargarGrilla();
+                //recargarGrilla();
             }
             else
             {
-                DataView vnom = dtEmp.DefaultView;
-                vnom.RowFilter = string.Format("Legajo like '%{0}%' OR Nombre like '%{0}%' OR Apellido like '%{0}%' OR Enrolamiento like '%{0}%' OR Categoría like '%{0}%' OR Superior like '%{0}%' OR Corporativo like '%{0}%' ", txtBuscarNom.Text);
-            }
-            
+                //DataView vnom = dtEmp.DefaultView;
+                //vnom.RowFilter = string.Format("Legajo like '%{0}%' OR Nombre like '%{0}%' OR Apellido like '%{0}%' OR Enrolamiento like '%{0}%' OR Categoría like '%{0}%' OR Superior like '%{0}%' OR Corporativo like '%{0}%' ", txtBuscarNom.Text);
 
-           
+                DataView vnom2 = dtEmp2.DefaultView;
+                vnom2.RowFilter = string.Format("Legajo like '%{0}%' OR Nombre like '%{0}%' OR Apellido like '%{0}%' OR Enrolamiento like '%{0}%' OR Categoria like '%{0}%' OR Superior like '%{0}%' OR Corporativo like '%{0}%' OR Compania like '%{0}%'  ", txtBuscarNom.Text);
+                dgvNomina.Rows.Clear();
+                foreach (DataRowView row in vnom2)
+                {
+                    string pp = row[0].ToString();
+                    string pp1 = row[1].ToString();
+                    string pp2 = row[2].ToString();
+                    string pp3 = row[3].ToString();
+                    string pp4 = row[4].ToString();
+                    string pp5 = row[5].ToString();
+                    string pp6 = row[6].ToString();
+                    string pp7 = row[7].ToString();
+
+                    dgvNomina.Rows.Add(pp, pp1, pp2, pp3, pp4, pp5, pp6, pp7);
+                }
+
+
+            }
+
+
+
 
         }
 
@@ -231,6 +264,15 @@ namespace GEN
             dtEmp.Columns.Add("Superior");
             dtEmp.Columns.Add("Corporativo");
             //dtEmp.Columns.Add("Compañía",typeof(System.Windows.Forms.ComboBox));
+            dtEmp2.Reset();
+            dtEmp2.Columns.Add("Legajo");
+            dtEmp2.Columns.Add("Nombre");
+            dtEmp2.Columns.Add("Apellido");
+            dtEmp2.Columns.Add("Enrolamiento");
+            dtEmp2.Columns.Add("Superior");
+            dtEmp2.Columns.Add("Corporativo");
+            dtEmp2.Columns.Add("Compania");
+            dtEmp2.Columns.Add("Categoria");
 
 
 
@@ -241,107 +283,122 @@ namespace GEN
             int v_filaNomi = 0;
             while (!oGrilla.EoF)
             {
-                //dtNomina.Rows.Add(oGrilla.Fields.Item(0).Value.ToString(), 
-                //                  oGrilla.Fields.Item(1).Value.ToString(), 
-                //                  oGrilla.Fields.Item(2).Value.ToString(), 
-                //                  oGrilla.Fields.Item(3).Value.ToString(), 
+                dtEmp2.Rows.Add(oGrilla.Fields.Item(0).Value.ToString(),
+                                oGrilla.Fields.Item(1).Value.ToString(),
+                                oGrilla.Fields.Item(2).Value.ToString(),
+                                oGrilla.Fields.Item(3).Value.ToString(),
+                                oGrilla.Fields.Item(5).Value.ToString(),
+                                oGrilla.Fields.Item(6).Value.ToString(),
+                                oGrilla.Fields.Item(8).Value.ToString(),
+                                oGrilla.Fields.Item(7).Value.ToString());
+
+
+                //dtEmp.Rows.Add(oGrilla.Fields.Item(0).Value.ToString(),
+                //                  oGrilla.Fields.Item(1).Value.ToString(),
+                //                  oGrilla.Fields.Item(2).Value.ToString(),
+                //                  oGrilla.Fields.Item(3).Value.ToString(),
                 //                  oGrilla.Fields.Item(4).Value.ToString(),
                 //                  oGrilla.Fields.Item(5).Value.ToString(),
-                //                  oGrilla.Fields.Item(6).Value.ToString(),
-                //                  oGrilla.Fields.Item(7).Value.ToString(),
-                //                  oGrilla.Fields.Item(8).Value.ToString(),
-                //                  oGrilla.Fields.Item(9).Value.ToString());
-
-                dtEmp.Rows.Add(oGrilla.Fields.Item(0).Value.ToString(),
-                                  oGrilla.Fields.Item(1).Value.ToString(),
-                                  oGrilla.Fields.Item(2).Value.ToString(),
-                                  oGrilla.Fields.Item(3).Value.ToString(),
-                                  oGrilla.Fields.Item(4).Value.ToString(),
-                                  oGrilla.Fields.Item(5).Value.ToString(),
-                                  oGrilla.Fields.Item(6).Value.ToString());
-                                  //oGrilla.Fields.Item(7).Value.ToString());
+                //                  oGrilla.Fields.Item(6).Value.ToString());
+                //oGrilla.Fields.Item(7).Value.ToString());
                 //dtNomina.Rows.Add();
                 //dtNomina.Rows[v_filaNomi].Cells[1].Value = oGrilla.Fields.Item(0).Value.ToString();
                 oGrilla.MoveNext();
                 v_filaNomi++;
             }
-            
-            dtNomina.DataSource = dtEmp;
+            //dgvNomina.AutoResizeColumns();
+            //dgvNomina.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dtNomina.DataSource = dtEmp;
+
+            int empcount = dtEmp2.Rows.Count;
+            //string pp = dtEmp2.Rows[0]["Compania"].ToString();
+            int count = 0;
+            while (count < empcount)
+            {
+                dgvNomina.Rows.Add(dtEmp2.Rows[count]["Legajo"].ToString(), dtEmp2.Rows[count]["Nombre"].ToString(), dtEmp2.Rows[count]["Apellido"].ToString(), dtEmp2.Rows[count]["Enrolamiento"].ToString(),
+                               dtEmp2.Rows[count]["Superior"].ToString(), dtEmp2.Rows[count]["Corporativo"].ToString(), dtEmp2.Rows[count]["Compania"].ToString(), dtEmp2.Rows[count]["Categoria"].ToString());
+                count++;
+            }
+
+
+            dgvNomina.EnableHeadersVisualStyles = false;
+            dgvNomina.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue;
+            dgvNomina.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
 
             //inhabilitar las columnas
-            int v_filaNomina = dtNomina.Rows.Count;
-            int v_con = 0;
-            while (v_con < v_filaNomina)
-            {
-                dtNomina.Rows[v_con].Cells[0].ReadOnly = true;
-                dtNomina.Rows[v_con].Cells[1].ReadOnly = true;
-                dtNomina.Rows[v_con].Cells[2].ReadOnly = true;
-                dtNomina.Rows[v_con].Cells[3].ReadOnly = true;
+            //int v_filaNomina = dtNomina.Rows.Count;
+            //int v_con = 0;
+            //while (v_con < v_filaNomina)
+            //{
+            //    dtNomina.Rows[v_con].Cells[0].ReadOnly = true;
+            //    dtNomina.Rows[v_con].Cells[1].ReadOnly = true;
+            //    dtNomina.Rows[v_con].Cells[2].ReadOnly = true;
+            //    dtNomina.Rows[v_con].Cells[3].ReadOnly = true;
 
-                dtNomina.Rows[v_con].Cells[0].Style.BackColor = Color.WhiteSmoke;
-                dtNomina.Rows[v_con].Cells[1].Style.BackColor = Color.WhiteSmoke;
-                dtNomina.Rows[v_con].Cells[2].Style.BackColor = Color.WhiteSmoke;
-                dtNomina.Rows[v_con].Cells[3].Style.BackColor = Color.WhiteSmoke;
-                dtNomina.EnableHeadersVisualStyles = false;
-                dtNomina.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue;
-                dtNomina.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                v_con++;
-            }
+            //    dtNomina.Rows[v_con].Cells[0].Style.BackColor = Color.WhiteSmoke;
+            //    dtNomina.Rows[v_con].Cells[1].Style.BackColor = Color.WhiteSmoke;
+            //    dtNomina.Rows[v_con].Cells[2].Style.BackColor = Color.WhiteSmoke;
+            //    dtNomina.Rows[v_con].Cells[3].Style.BackColor = Color.WhiteSmoke;
+            //    dtNomina.EnableHeadersVisualStyles = false;
+            //    dtNomina.ColumnHeadersDefaultCellStyle.BackColor = Color.SteelBlue;
+            //    dtNomina.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            //    v_con++;
+            //}
             //agregar combobox a la grilla
-            DataGridViewComboBoxColumn cbCell = new DataGridViewComboBoxColumn();
-            cbCell.DisplayIndex = 8;
-            cbCell.HeaderText = "Compañia";
-            cbCell.Items.Add("CLARO");
-            cbCell.Items.Add("TIGO");
-            cbCell.Items.Add("PERSONAL");
-            cbCell.Name = "Compañía";
-            dtNomina.Columns.Add(cbCell);
+            //DataGridViewComboBoxColumn cbCell = new DataGridViewComboBoxColumn();
+            //cbCell.DisplayIndex = 8;
+            //cbCell.HeaderText = "Compañia";
+            //cbCell.Items.Add("CLARO");
+            //cbCell.Items.Add("TIGO");
+            //cbCell.Items.Add("PERSONAL");
+            //cbCell.Name = "Compañía";
+            //dtNomina.Columns.Add(cbCell);
            
 
-            int v_filaCia = 0;
-            //cargar las compañias de cada empleado
-            SAPbobsCOM.Recordset oGrilla2;
-            oGrilla2 = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
-            oGrilla2.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\",T0.\"U_CATEGORIA\",T0.\"U_TEL_CO\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" order by T0.\"DocEntry\" asc\r\n ");
-            while (!oGrilla2.EoF)
-            {
-                string v_cia = oGrilla2.Fields.Item(8).Value.ToString();
-                if (!string.IsNullOrEmpty(v_cia))
-                {
-                    dtNomina.Rows[v_filaCia].Cells[7].Value = v_cia;
-                }
-                v_filaCia++;
-                oGrilla2.MoveNext();
-            }
+            //int v_filaCia = 0;
+            ////cargar las compañias de cada empleado
+            //SAPbobsCOM.Recordset oGrilla2;
+            //oGrilla2 = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+            //oGrilla2.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\",T0.\"U_CATEGORIA\",T0.\"U_TEL_CO\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" order by T0.\"DocEntry\" asc\r\n ");
+            //while (!oGrilla2.EoF)
+            //{
+            //    string v_cia = oGrilla2.Fields.Item(8).Value.ToString();
+            //    if (!string.IsNullOrEmpty(v_cia))
+            //    {
+            //        dtNomina.Rows[v_filaCia].Cells[7].Value = v_cia;
+            //    }
+            //    v_filaCia++;
+            //    oGrilla2.MoveNext();
+            //}
 
             ////cargar las categoria de cada empleado
-            SAPbobsCOM.Recordset oCat;
-            oCat = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
-            oCat.DoQuery("SELECT \"Name\" FROM \"@JCATEGORIA_EMPLEADO\" ");
-            DataGridViewComboBoxColumn cbCell2 = new DataGridViewComboBoxColumn();
-            cbCell2.DisplayIndex = 9;
-            cbCell2.HeaderText = "Categoría";
-            while (!oCat.EoF)
-            {
-                cbCell2.Items.Add(oCat.Fields.Item(0).Value.ToString());
-                oCat.MoveNext();
-            }
-            dtNomina.Columns.Add(cbCell2);
-            dtNomina.Columns[4].Visible= false;
-            SAPbobsCOM.Recordset oCatSelect;
-            oCatSelect = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
-            oCatSelect.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\",T0.\"U_CATEGORIA\",T0.\"U_TEL_CO\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" order by T0.\"DocEntry\" asc\r\n");
-            int v_filaCat = 0;
-            while (!oCatSelect.EoF)
-            {
-                string v_cat = oCatSelect.Fields.Item(7).Value.ToString();
-                if (!v_cat.Equals("A DEFINIR"))
-                {
-                    dtNomina.Rows[v_filaCat].Cells[8].Value = v_cat;
-                }
-                v_filaCat++;
-                oCatSelect.MoveNext();
-            }
+            //SAPbobsCOM.Recordset oCat;
+            //oCat = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+            //oCat.DoQuery("SELECT \"Name\" FROM \"@JCATEGORIA_EMPLEADO\" ");
+            //DataGridViewComboBoxColumn cbCell2 = new DataGridViewComboBoxColumn();
+            //cbCell2.DisplayIndex = 9;
+            //cbCell2.HeaderText = "Categoría";
+            //while (!oCat.EoF)
+            //{
+            //    cbCell2.Items.Add(oCat.Fields.Item(0).Value.ToString());
+            //    oCat.MoveNext();
+            //}
+            //dtNomina.Columns.Add(cbCell2);
+            //dtNomina.Columns[4].Visible= false;
+            //SAPbobsCOM.Recordset oCatSelect;
+            //oCatSelect = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+            //oCatSelect.DoQuery("SELECT T0.\"U_LEGAJO\",T0.\"U_NOMBRE\",T0.\"U_APELLIDO\",T0.\"U_COD_ENROLAMIENTO\",T0.\"U_COD_CATEGORIA\",T0.\"U_SUPERIOR\"||' - '||T1.\"U_NOMBRE\",T0.\"U_CELULAR\",T0.\"U_CATEGORIA\",T0.\"U_TEL_CO\" FROM \"@JEMPLEADOS\" T0 LEFT JOIN \"@JEMPLEADOS\" T1 ON T1.\"U_LEGAJO\"=T0.\"U_SUPERIOR\" order by T0.\"DocEntry\" asc\r\n");
+            //int v_filaCat = 0;
+            //while (!oCatSelect.EoF)
+            //{
+            //    string v_cat = oCatSelect.Fields.Item(7).Value.ToString();
+            //    if (!v_cat.Equals("A DEFINIR"))
+            //    {
+            //        dtNomina.Rows[v_filaCat].Cells[8].Value = v_cat;
+            //    }
+            //    v_filaCat++;
+            //    oCatSelect.MoveNext();
+            //}
 
 
         }
@@ -575,6 +632,24 @@ namespace GEN
                         v_cant++;
                     }
                 
+            }
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            filtros filtro = new filtros();
+            AddOwnedForm(filtro);
+            filtro.Show();
+        }
+
+        private void dgvNomina_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4)
+            {
+                v_filaNomina = e.RowIndex;
+                superior supe = new superior();
+                AddOwnedForm(supe);
+                supe.Show();
             }
         }
     }
