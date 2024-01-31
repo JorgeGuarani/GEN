@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -19,7 +21,7 @@ namespace GEN
     public partial class nomina : System.Windows.Forms.Form
     {
         //datatable empleado
-        System.Data.DataTable dtEmp = new System.Data.DataTable("EMP");
+        public System.Data.DataTable dtEmp = new System.Data.DataTable("EMP");
         System.Data.DataColumn EMPleg = new System.Data.DataColumn("col1");
         System.Data.DataColumn EMPnom = new System.Data.DataColumn("col2");
         System.Data.DataColumn EMPape = new System.Data.DataColumn("col3");
@@ -28,7 +30,7 @@ namespace GEN
         System.Data.DataColumn EMPsup = new System.Data.DataColumn("col6");
         System.Data.DataColumn EMPtel = new System.Data.DataColumn("col7");
         System.Data.DataColumn EMPcom = new System.Data.DataColumn("col8");
-        System.Data.DataTable dtEmp2 = new System.Data.DataTable("EMP2");
+        public System.Data.DataTable dtEmp2 = new System.Data.DataTable("EMP2");
         public static bool v_reload = false;
         //variable
         public static int v_filaNomina = 0;
@@ -147,39 +149,63 @@ namespace GEN
         //Funcion para la busqueda dinamica (al momento de escribir)
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBuscarNom.Text))
-            {
-                //recargarGrilla();
-            }
-            else
-            {
+                if (string.IsNullOrEmpty(txtBuscarNom.Text))
+                {
+                    recargarGrilla();
+                }
+                else
+                {
                 //DataView vnom = dtEmp.DefaultView;
                 //vnom.RowFilter = string.Format("Legajo like '%{0}%' OR Nombre like '%{0}%' OR Apellido like '%{0}%' OR Enrolamiento like '%{0}%' OR Categoría like '%{0}%' OR Superior like '%{0}%' OR Corporativo like '%{0}%' ", txtBuscarNom.Text);
-
-                DataView vnom2 = dtEmp2.DefaultView;
-                vnom2.RowFilter = string.Format("Legajo like '%{0}%' OR Nombre like '%{0}%' OR Apellido like '%{0}%' OR Enrolamiento like '%{0}%' OR Categoria like '%{0}%' OR Superior like '%{0}%' OR Corporativo like '%{0}%' OR Compania like '%{0}%'  ", txtBuscarNom.Text);
-                dgvNomina.Rows.Clear();
-                foreach (DataRowView row in vnom2)
+                if (filtro_confirmar == false)
                 {
-                    string pp = row[0].ToString();
-                    string pp1 = row[1].ToString();
-                    string pp2 = row[2].ToString();
-                    string pp3 = row[3].ToString();
-                    string pp4 = row[4].ToString();
-                    string pp5 = row[5].ToString();
-                    string pp6 = row[6].ToString();
-                    string pp7 = row[7].ToString();
+                    DataView vnom2 = dtEmp2.DefaultView;
+                    vnom2.RowFilter = string.Format("Legajo like '%{0}%' OR Nombre like '%{0}%' OR Apellido like '%{0}%' OR Enrolamiento like '%{0}%' OR Categoria like '%{0}%' OR Superior like '%{0}%' OR Corporativo like '%{0}%' OR Compania like '%{0}%'  ", txtBuscarNom.Text);
+                    dgvNomina.Rows.Clear();
+                    foreach (DataRowView row in vnom2)
+                    {
+                        string pp = row[0].ToString();
+                        string pp1 = row[1].ToString();
+                        string pp2 = row[2].ToString();
+                        string pp3 = row[3].ToString();
+                        string pp4 = row[4].ToString();
+                        string pp5 = row[5].ToString();
+                        string pp6 = row[6].ToString();
+                        string pp7 = row[7].ToString();
 
-                    dgvNomina.Rows.Add(pp, pp1, pp2, pp3, pp4, pp5, pp6, pp7);
-                }               
+                        dgvNomina.Rows.Add(pp, pp1, pp2, pp3, pp4, pp5, pp6, pp7);
+                    }
+                }
+                else
+                {
+                    DataView vnom2 = dtEmp2.DefaultView;
+                    vnom2.RowFilter = string.Format("Legajo like '%{0}%' OR Nombre like '%{0}%' OR Apellido like '%{0}%' OR Enrolamiento like '%{0}%' OR Categoria like '%{0}%' OR Superior like '%{0}%' OR Corporativo like '%{0}%' OR Compania like '%{0}%'  ", filtro_leg);
+                    dgvNomina.Rows.Clear();
+                    foreach (DataRowView row in vnom2)
+                    {
+                        string pp = row[0].ToString();
+                        string pp1 = row[1].ToString();
+                        string pp2 = row[2].ToString();
+                        string pp3 = row[3].ToString();
+                        string pp4 = row[4].ToString();
+                        string pp5 = row[5].ToString();
+                        string pp6 = row[6].ToString();
+                        string pp7 = row[7].ToString();
+
+                        dgvNomina.Rows.Add(pp, pp1, pp2, pp3, pp4, pp5, pp6, pp7);
+                        filtro_confirmar = false;
+                    }
+                }
+                    
 
 
-            }
+                }
+          
 
 
-
-
+        
         }
+
 
         //funcion para cerrar el formulario
         private void button2_Click(object sender, EventArgs e)
@@ -433,7 +459,7 @@ namespace GEN
         private void recargarGrilla()
         {
             dtEmp2.Clear();
-            dtEmp2.Rows.Clear();           
+            dtEmp2.Rows.Clear();
 
             SAPbobsCOM.Recordset oGrilla;
             oGrilla = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
@@ -668,9 +694,17 @@ namespace GEN
 
         private void pictureBox6_Click(object sender, EventArgs e)
         {
-            filtros filtro = new filtros();
-            AddOwnedForm(filtro);
-            filtro.Show();
+            
+                filtros filtro = new filtros();
+                DialogResult res = filtro.ShowDialog();
+                AddOwnedForm(filtro);
+            //filtro.Show();
+
+            if (res == DialogResult.OK)
+            {
+                txtBuscarNom.Text = filtro_leg;
+            }
+                   
         }
 
         private void dgvNomina_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -681,6 +715,81 @@ namespace GEN
                 superior supe = new superior();
                 AddOwnedForm(supe);
                 supe.Show();
+            }
+        }
+
+        private void enviarcorreo(string mail, string cdc, string doc, string fecha, string moneda, string total, string tipoDoc)
+        {          
+
+            //string correoOrigen = "kokechaparro1992@gmail.com";
+            //string correoOrigen = "contabilidad@fguarani.com.py";
+            string correoOrigen = "payala@fguarani.com.py";
+            string correoDestino = mail; //"kokechaparro1992@gmail.com";
+            //string correoDestino =  "payala@fguarani.com.py";
+            //string pass = "lkioiccnnlskdorc";
+            //string pass = "wxvgyhbmlwjqtzkm";
+            string pass = "yxxjzvpkwmqwqtrs";
+            string cuerpo = "Estimado cliente, \n\n" +
+                            "En el presente correo se adjunta el siguiente documento: \n\n" +
+                            "- " + tipoDoc + " \n" +
+                            "- Número: " + doc + " \n" +
+                            "- Fecha de emisión: " + fecha + " \n" +
+                            "- Moneda: " + moneda + " \n" +
+                            "- Monto: " + total + "\n\n" +
+                            "Muchas gracias \n\n" +
+                            "Este mensaje y sus anexos pertenecen al Frigorífico Guarani y son de carácter estrictamente confidencial. \n" +
+                            "Si usted recibe esta información por error, por favor contacte inmediatamente con el remitente, respondiendo el correo y eliminándolo. No use la información, ni la copie, ni tome " +
+                            "acciones basadas en ésta, ni divulgue su contenido a ninguna persona y/o sociedad. El incumplimiento podría constituir responsabilidades penales dispuestas por las Leyes.";
+
+            string v_nombrecompa = "";
+            MailMessage correo = new MailMessage(correoOrigen, correoDestino, v_nombrecompa, "Envío de DE emitido por " + v_nombrecompa);
+            //System.Net.Mail.Attachment adjunto = new System.Net.Mail.Attachment(CarpEscr + cdc + ".pdf");
+            //correo.Attachments.Add(adjunto);
+            //System.Net.Mail.Attachment adjunto2 = new System.Net.Mail.Attachment(CarpEscr + cdc + ".xml");
+            //correo.Attachments.Add(adjunto2);
+            correo.Body = cuerpo;
+
+            //SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            SmtpClient smtp = new SmtpClient("smtp.office365.com");
+            smtp.EnableSsl = true;
+            System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+            smtp.UseDefaultCredentials = false;
+            smtp.Port = 587;
+            smtp.Credentials = new System.Net.NetworkCredential(correoOrigen, pass);
+
+            try
+            {
+                smtp.Send(correo);              
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
+
+        private void btnprueba_Click(object sender, EventArgs e)
+        {
+            recargarGrilla();
+        }
+
+        private void limpiarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //agarramos la fila seleccionada
+            foreach (DataGridViewRow row in dgvNomina.Rows)
+            {
+                if (row.Selected == true)
+                {
+                    //dtAsoCentral.Rows.Remove(row);
+                    string v_legajo = row.Cells[0].Value.ToString();
+                    //eliminamos la linea de la base de datos
+                    SAPbobsCOM.Recordset oLimpiar;
+                    oLimpiar = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+                    oLimpiar.DoQuery("UPDATE \"@JEMPLEADOS\" SET \"U_COD_CATEG\"='', \"U_SUPERIOR\"='', \"U_CELULAR\"='', \"U_TEL_CO\"='' WHERE \"U_LEGAJO\"='"+ v_legajo + "' ");
+
+                    MessageBox.Show("Los datos fueron limpiados", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
     }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
+
 namespace GEN
 {
     public partial class filtros : Form
@@ -54,6 +55,7 @@ namespace GEN
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            nomina.filtro_confirmar = true;
             nomina.filtro_leg = txtLegajo.Text;
             nomina.filtro_nom = txtNom.Text;
             nomina.filtro_ape = txtApe.Text;
@@ -61,7 +63,9 @@ namespace GEN
             nomina.filtro_sup = txtSup.Text;
             nomina.filtro_corp = txtCorp.Text;
             nomina.filtro_comp = cbComp.GetItemText(cbComp.SelectedItem);
-            nomina.filtro_categ = cbCateeg.GetItemText(cbCateeg.SelectedItem);
+            nomina.filtro_categ = cbCateeg.GetItemText(cbCateeg.SelectedItem);           
+            
+            //fin prueba
             Close();
         }
     }

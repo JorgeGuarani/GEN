@@ -217,11 +217,11 @@ namespace GEN
                         string v_SN = dtAsociacion.Rows[v_index].Cells[0].Value.ToString();
                         string v_SNdesc = dtAsociacion.Rows[v_index].Cells[1].Value.ToString();
                         //buscamos el ultimo codigo
-                       
+
                         SAPbobsCOM.Recordset oMaxcod;
                         oMaxcod = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
-                        oMaxcod.DoQuery("select max(\"DocEntry\")+1 from \"FG_PROD\".\"@IMPPDV\"");
-                        string v_cod = oMaxcod.Fields.Item(0).Value.ToString();
+                        oMaxcod.DoQuery("select max(\"DocEntry\")+1 from \"FG_PROD\".\"@IMPPDV\" ");
+                        string v_cod =  oMaxcod.Fields.Item(0).Value.ToString();
 
                         //armamos el query e insertamos los datos
                         string v_query = "INSERT INTO \"FG_PROD\".\"@IMPPDV\" (\"Code\",\"DocEntry\",\"Object\",\"U_LEG_IMP\",\"U_IMPULSADOR\",\"U_PDV\",\"U_PDV_DESC\") VALUES ('" + v_cod + "','" + v_cod + "','IMPPDV','" + v_legajoEmp + "','" + v_empleado + "','" + v_SN + "','" + v_SNdesc + "') ";
@@ -237,6 +237,8 @@ namespace GEN
                         SAPbobsCOM.Recordset oBorrar;
                         oBorrar = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
                         oBorrar.DoQuery("DELETE FROM \"FG_PROD\".\"@IMPPDV\" WHERE \"U_PDV\"='" + v_boSN + "' AND \"U_LEG_IMP\"='" + v_boLegajo + "'");
+                        v_boLegajo = "";
+                        v_boSN = "";
                     }
                     
 
@@ -275,7 +277,7 @@ namespace GEN
 
             SAPbobsCOM.Recordset oGrillaSN;
             oGrillaSN = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
-            oGrillaSN.DoQuery("SELECT T0.\"CardCode\",T0.\"CardName\",T1.\"Street\",T1.\"County\",T0.\"U_Latitud\",T0.\"U_Longitud\" FROM OCRD T0 INNER JOIN CRD1 T1 ON T0.\"CardCode\"=T1.\"CardCode\" WHERE \"U_jCANAL\"='2' AND T0.\"CardType\"='C'");
+            oGrillaSN.DoQuery("SELECT T0.\"CardCode\",T0.\"CardName\",T1.\"Street\",T1.\"County\",T0.\"U_Latitud\",T0.\"U_Longitud\" FROM OCRD T0 INNER JOIN CRD1 T1 ON T0.\"CardCode\"=T1.\"CardCode\" WHERE \"U_jCANAL\" in ('1','2') AND T0.\"CardType\"='C'");
             while (!oGrillaSN.EoF)
             {                
                 dtbSN.Rows.Add(oGrillaSN.Fields.Item(0).Value.ToString(),

@@ -44,6 +44,8 @@
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.dtAsoCentral = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.eliminarFilaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folder2 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -66,21 +68,19 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.btnCambiar = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.eliminarFilaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.folder1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtAsoCentral)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.folder2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtAsociacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtEmpleado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtSocioN)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -172,6 +172,21 @@
             this.dtAsoCentral.Size = new System.Drawing.Size(1226, 455);
             this.dtAsoCentral.TabIndex = 0;
             this.dtAsoCentral.SelectionChanged += new System.EventHandler(this.dtAsoCentral_SelectionChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.eliminarFilaToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 56);
+            // 
+            // eliminarFilaToolStripMenuItem
+            // 
+            this.eliminarFilaToolStripMenuItem.Name = "eliminarFilaToolStripMenuItem";
+            this.eliminarFilaToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.eliminarFilaToolStripMenuItem.Text = "Eliminar fila";
+            this.eliminarFilaToolStripMenuItem.Click += new System.EventHandler(this.eliminarFilaToolStripMenuItem_Click);
             // 
             // folder2
             // 
@@ -413,21 +428,6 @@
             this.btnCambiar.UseVisualStyleBackColor = false;
             this.btnCambiar.Click += new System.EventHandler(this.btnCambiar_Click);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.eliminarFilaToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(158, 28);
-            // 
-            // eliminarFilaToolStripMenuItem
-            // 
-            this.eliminarFilaToolStripMenuItem.Name = "eliminarFilaToolStripMenuItem";
-            this.eliminarFilaToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
-            this.eliminarFilaToolStripMenuItem.Text = "Eliminar fila";
-            this.eliminarFilaToolStripMenuItem.Click += new System.EventHandler(this.eliminarFilaToolStripMenuItem_Click);
-            // 
             // asociacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -455,6 +455,7 @@
             this.folder1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtAsoCentral)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.folder2.ResumeLayout(false);
             this.folder2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -462,7 +463,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtAsociacion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtEmpleado)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtSocioN)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
