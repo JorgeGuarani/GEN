@@ -521,7 +521,7 @@ namespace GEN
                 string supApe = oSup.Fields.Item(0).Value.ToString();
                 string supNom = oSup.Fields.Item(1).Value.ToString();;
 
-                string correoOrigen = "hermes.news@fguarani.com.py";
+                string correoOrigen = "hermes.news@fguarani.com.py"; 
                 string pass = "Guarani@321**";
                 string correoDestino = "hermes.rrhh@fguarani.com.py";
                 string cuerpo = "<b> Notificacion de Cambio de PDV </b> <br><br>" +                              
