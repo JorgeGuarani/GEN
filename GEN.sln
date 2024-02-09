@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GEN", "GEN\GEN.csproj", "{255CCAB0-491A-4DF1-8082-323D4D047005}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "instaladorGEN", "instaladorGEN\instaladorGEN.vdproj", "{4E7979FE-94FE-4AD5-AEC8-835C83CB098E}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstaladorGEN", "InstaladorGEN\InstaladorGEN.vdproj", "{B4A08982-FDE0-4B1A-892E-E9E8855B8BD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{255CCAB0-491A-4DF1-8082-323D4D047005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{255CCAB0-491A-4DF1-8082-323D4D047005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{255CCAB0-491A-4DF1-8082-323D4D047005}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E7979FE-94FE-4AD5-AEC8-835C83CB098E}.Debug|Any CPU.ActiveCfg = Debug
-		{4E7979FE-94FE-4AD5-AEC8-835C83CB098E}.Release|Any CPU.ActiveCfg = Release
+		{B4A08982-FDE0-4B1A-892E-E9E8855B8BD8}.Debug|Any CPU.ActiveCfg = Debug
+		{B4A08982-FDE0-4B1A-892E-E9E8855B8BD8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

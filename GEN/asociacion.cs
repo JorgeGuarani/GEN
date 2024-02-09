@@ -1,10 +1,13 @@
 ﻿using SAPbobsCOM;
+using SAPbouiCOM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +15,7 @@ using System.Windows.Forms;
 
 namespace GEN
 {
-    public partial class asociacion : Form
+    public partial class asociacion : System.Windows.Forms.Form
     {
         //variables para socio de negocio
         string v_sn = null;
@@ -28,31 +31,31 @@ namespace GEN
         string v_boLegajo = null;
         string v_boSN = null;
         //datatable SN
-        DataTable dtbSN = new DataTable("SN");
-        DataColumn SNcod = new DataColumn("col1");
-        DataColumn SNnom = new DataColumn("col2");
-        DataColumn SNdire = new DataColumn("col3");
-        DataColumn SNciu = new DataColumn("col4");
-        DataColumn SNlat = new DataColumn("col5");
-        DataColumn SNlon = new DataColumn("col6");
+        System.Data.DataTable dtbSN = new System.Data.DataTable("SN");
+        System.Data.DataColumn SNcod = new System.Data.DataColumn("col1");
+        System.Data.DataColumn SNnom = new System.Data.DataColumn("col2");
+        System.Data.DataColumn SNdire = new System.Data.DataColumn("col3");
+        System.Data.DataColumn SNciu = new System.Data.DataColumn("col4");
+        System.Data.DataColumn SNlat = new System.Data.DataColumn("col5");
+        System.Data.DataColumn SNlon = new System.Data.DataColumn("col6");
         //datatable empleado
-        DataTable dtEmp = new DataTable("EMP");
-        DataColumn EMPleg = new DataColumn("col1");
-        DataColumn EMPnom = new DataColumn("col2");
-        DataColumn EMPape = new DataColumn("col3");
-        DataColumn EMPtel = new DataColumn("col4");
-        DataColumn EMPsup = new DataColumn("col5");
-        DataColumn EMPcat = new DataColumn("col6");
+        System.Data.DataTable dtEmp = new System.Data.DataTable("EMP");
+        System.Data.DataColumn EMPleg = new System.Data.DataColumn("col1");
+        System.Data.DataColumn EMPnom = new System.Data.DataColumn("col2");
+        System.Data.DataColumn EMPape = new System.Data.DataColumn("col3");
+        System.Data.DataColumn EMPtel = new System.Data.DataColumn("col4");
+        System.Data.DataColumn EMPsup = new System.Data.DataColumn("col5");
+        System.Data.DataColumn EMPcat = new System.Data.DataColumn("col6");
         //datatable asociacion
-        DataTable dtbAso = new DataTable("ASO");
-        DataColumn ASOsn = new DataColumn("col1");
-        DataColumn ASOnom = new DataColumn("col2");
-        DataColumn ASOdire = new DataColumn("col3");
-        DataColumn ASOciu = new DataColumn("col4");
-        DataColumn ASOleg = new DataColumn("col5");
-        DataColumn ASOempnom = new DataColumn("col6");
-        DataColumn ASOempape = new DataColumn("col7");
-        DataColumn ASOempsup = new DataColumn("col8");
+        System.Data.DataTable dtbAso = new System.Data.DataTable("ASO");
+        System.Data.DataColumn ASOsn = new System.Data.DataColumn("col1");
+        System.Data.DataColumn ASOnom = new System.Data.DataColumn("col2");
+        System.Data.DataColumn ASOdire = new System.Data.DataColumn("col3");
+        System.Data.DataColumn ASOciu = new System.Data.DataColumn("col4");
+        System.Data.DataColumn ASOleg = new System.Data.DataColumn("col5");
+        System.Data.DataColumn ASOempnom = new System.Data.DataColumn("col6");
+        System.Data.DataColumn ASOempape = new System.Data.DataColumn("col7");
+        System.Data.DataColumn ASOempsup = new System.Data.DataColumn("col8");
 
 
         public asociacion()
@@ -229,7 +232,7 @@ namespace GEN
                         oInsert = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
                         oInsert.DoQuery(v_query);
                         v_index++;
-
+                        enviarcorreo(v_SN, v_boSN, v_boLegajo, v_legajoEmp);
                     }
                     //borramos el registro
                     if (!string.IsNullOrEmpty(v_boLegajo))
@@ -479,6 +482,82 @@ namespace GEN
                     dtbAso.Clear();
                     cargarGrillaASO();
                 }
+            }
+        }
+
+
+        private void enviarcorreo(string sn, string snanterior, string legajoanterior, string legajo)
+        {
+            try
+            {
+                //busqueda de descripcion PDV actual
+                SAPbobsCOM.Recordset oSN;
+                oSN = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+                oSN.DoQuery("SELECT \"CardName\" FROM OCRD WHERE \"CardCode\"='"+sn+"'");
+                string pdvActual = oSN.Fields.Item(0).Value.ToString();
+                //busqueda de descripcion PDV anterior
+                SAPbobsCOM.Recordset oSNant;
+                oSNant = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+                oSNant.DoQuery("SELECT \"CardName\" FROM OCRD WHERE \"CardCode\"='"+ snanterior + "'");
+                string pdvAnterior = oSNant.Fields.Item(0).Value.ToString();
+                //busqueda de LEGAJO ACTUAL
+                SAPbobsCOM.Recordset oLegAct;
+                oLegAct = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+                oLegAct.DoQuery("SELECT \"U_APELLIDO\", \"U_NOMBRE\", \"U_SUPERIOR\" FROM \"@JEMPLEADOS\" WHERE \"U_LEGAJO\"='"+ legajo + "'");
+                string legActualNom = oLegAct.Fields.Item(0).Value.ToString();
+                string legActualApe = oLegAct.Fields.Item(1).Value.ToString();
+                string legActualSup = oLegAct.Fields.Item(2).Value.ToString();
+                //busqueda de LEGAJO ANTERIOR
+                SAPbobsCOM.Recordset oLegAnt;
+                oLegAnt = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+                oLegAnt.DoQuery("SELECT \"U_APELLIDO\", \"U_NOMBRE\", \"U_SUPERIOR\" FROM \"@JEMPLEADOS\" WHERE \"U_LEGAJO\"='" + legajoanterior + "'");
+                string legAntNom = oLegAnt.Fields.Item(0).Value.ToString();
+                string legAntApe = oLegAnt.Fields.Item(1).Value.ToString();
+                string legAntSup = oLegAnt.Fields.Item(2).Value.ToString();
+                //busqueda de SUPERIOR
+                SAPbobsCOM.Recordset oSup;
+                oSup = (SAPbobsCOM.Recordset)login.oSBO.GetBusinessObject(BoObjectTypes.BoRecordset);
+                oSup.DoQuery("SELECT \"U_APELLIDO\", \"U_NOMBRE\" FROM \"@JEMPLEADOS\" WHERE \"U_LEGAJO\"='" + legActualSup + "'");
+                string supApe = oSup.Fields.Item(0).Value.ToString();
+                string supNom = oSup.Fields.Item(1).Value.ToString();;
+
+                string correoOrigen = "hermes.news@fguarani.com.py";
+                string pass = "Guarani@321**";
+                string correoDestino = "hermes.rrhh@fguarani.com.py";
+                string cuerpo = "<b> Notificacion de Cambio de PDV </b> <br><br>" +                              
+                                "<b> Fecha:  </b>" + DateTime.Now.ToString("dd/MM/yyyy") + "<br>" +
+                                "<b> ________________________________________________________________ </b><br>" +
+                                "<b> Supervisor:  </b>" + legActualSup + " - "+ supApe+", "+ supNom + "<br>" +
+                                "<b> PDV actual:  </b>" + sn + " - " + pdvActual + " <br>" +
+                                "<b> Cod. legajo actual:  </b>" + legajo + " - " + legActualApe + ", "+ legActualNom + " <br>" +
+                                "<b> ________________________________________________________________ </b><br>" +
+                                "<b> PDV anterior:  </b>" + snanterior + " - "+ pdvAnterior;
+
+                MailMessage correo = new MailMessage(correoOrigen, correoDestino, "Frigorífico Guarani", "Cambio de PDV");
+                correo.Body = cuerpo;
+                correo.IsBodyHtml = true;
+
+                //SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                SmtpClient smtp = new SmtpClient("smtp.office365.com");
+                smtp.EnableSsl = true;
+                System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+                smtp.UseDefaultCredentials = false;
+                smtp.Port = 587;
+                smtp.Credentials = new System.Net.NetworkCredential(correoOrigen, pass);
+
+                try
+                {
+                    smtp.Send(correo);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

@@ -1,5 +1,7 @@
 namespace GEN    
 {
+    using System.Net.Mail;
+    using System.Net;
     using System.Runtime.InteropServices;
     using SAPbobsCOM;
 
@@ -129,5 +131,7 @@ namespace GEN
         {
             this.Close();
         }
+
+        
     }
 }

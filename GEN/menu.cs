@@ -30,8 +30,8 @@ namespace GEN
             string v_usuario = oUsuario.Fields.Item(0).Value.ToString();
             int index = v_usuario.IndexOf(" ");
             int cantidad = v_usuario.Length;
-            string v_nombre = v_usuario.Remove(index,cantidad-index);
-            string v_apellido = v_usuario.Remove(0,index);
+            string v_nombre = v_usuario.Remove(index, cantidad - index);
+            string v_apellido = v_usuario.Remove(0, index);
             lblUsuario.Text = v_nombre;
             lblapellido.Text = v_apellido;
             btnCal.Enabled = false;
